@@ -1,0 +1,21 @@
+<label>Server name</label>
+<!-- <input type="text" class="form-control" (input)="onUpdateServerName($event)"> -->
+<input type="text" class="form-control" [(ngModel)]="serverName">
+<p>{{serverName}}</p>
+<button class="btn btn-primary" [disabled]="!allowNewServer" (click)="onCreateServer()">Add server</button>
+<!-- 
+    [] oneWay binding from javascript to html
+    () oneWay binding from html to javascript 
+    [(ngModel)]="variableName" twoWay binding for variableName
+-->
+<p [innerText]="allowNewServer"></p>
+<!--
+    <p *ngIf="serverCreated">{{serverCreationStatus}}</p> 
+    <p *ngIf="!serverCreated">no server</p>  
+-->
+<p *ngIf="serverCreated; else noServer">{{serverCreationStatus}} :)</p> 
+<ng-template #noServer>
+    <p>No server! :(</p>
+</ng-template>
+
+<app-server *ngFor="let serr of servers"></app-server>
