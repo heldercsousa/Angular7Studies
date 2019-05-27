@@ -1,0 +1,21 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">col1H</th>
+      <th scope="col">col2H</th>
+      <th scope="col">col2H</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let item of gridElements">
+          <th scope="row">1</th>
+          <td>{{item.col1}}</td>
+          <td>{{item.col2}}</td>
+          <td>{{item.col3}}</td>
+      </tr>
+
+    <!-- <app-grid-list-item *ngFor="let item of gridElements" [listItem]="item"></app-grid-list-item> -->
+
+  </tbody>
+</table>
