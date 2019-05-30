@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class AppComponent {
   title = 'Recipe book';
-
+  currentLink = 0;
+  onHeaderLinkClicked(numb: number) {
+    this.currentLink = numb;
+  }
 }
