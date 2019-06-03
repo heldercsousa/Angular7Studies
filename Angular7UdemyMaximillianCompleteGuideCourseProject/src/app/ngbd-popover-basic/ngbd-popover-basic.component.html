@@ -1,8 +1,8 @@
 <button type="button" class="btn btn-outline-secondary mr-2" placement="top"
-        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on top">
+        [ngbPopover]="popContent" [popoverTitle]="popTitle">
   Popover on top
 </button>
-
+<!-- 
 <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
         ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on right">
   Popover on right
@@ -14,6 +14,11 @@
 </button>
 
 <button type="button" class="btn btn-outline-secondary mr-2" placement="left"
-        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on left">
+        [ngbPopover]="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on left">
   Popover on left
-</button>
+</button> -->
+
+<ng-template #popTitle><span class="popover-title">Title</span></ng-template>
+<ng-template #popContent>
+  <span class="text-center">Content</span>
+</ng-template>

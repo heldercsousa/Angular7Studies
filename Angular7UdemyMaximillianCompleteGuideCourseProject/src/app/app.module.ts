@@ -13,13 +13,15 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgbdPopoverBasicComponent } from './ngbd-popover-basic/ngbd-popover-basic.component';
+import { DropdownDirective } from './shared/dropdown.directive';
 
 @NgModule({
   declarations: [
     AppComponent, 
     HeaderComponent, 
     RecipesComponent,RecipeListComponent, RecipeDetailComponent, RecipeItemComponent, ShoppingListComponent, ShoppingEditComponent,
-    NgbdPopoverBasicComponent
+    NgbdPopoverBasicComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,

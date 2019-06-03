@@ -1,6 +1,6 @@
 <app-header (linkClicked)="onHeaderLinkClicked($event)"></app-header>
 
-<app-ngbd-popover-basic></app-ngbd-popover-basic>
+<!-- <app-ngbd-popover-basic></app-ngbd-popover-basic> -->
 
 <div class="container">
   <div class="row">
@@ -10,3 +10,12 @@
     </div>
   </div>
 </div>
+
+<button type="button" class="btn btn-outline-secondary mr-2" placement="top" ngbPopover="popContent" popoverTitle="popTitle">
+  Popover
+</button>
+
+<button type="button" class="btn btn-outline-secondary mr-2" placement="top"
+        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on top">
+  Popover on top
+</button>
