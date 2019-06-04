@@ -4,10 +4,12 @@ import { LoggingService } from '../services/logging.service';
 @Component({
   selector: 'app-new-account',
   templateUrl: './new-account.component.html',
-  styleUrls: ['./new-account.component.css']
+  styleUrls: ['./new-account.component.css'],
+  providers: [LoggingService]
 })
 export class NewAccountComponent {
   @Output() accountAdded = new EventEmitter<{name: string, status: string}>();
+  constructor(private logginService: LoggingService) {}
 
   onCreateAccount(accountName: string, accountStatus: string) {
     this.accountAdded.emit({
@@ -16,6 +18,6 @@ export class NewAccountComponent {
     });
     //Angular provides a much better way to use Services rather than instantiating them like here!
     const service = new LoggingService();
-    service.logStatusChange(accountStatus);
+    this.logginService.logStatusChange(accountStatus);
   }
 }
