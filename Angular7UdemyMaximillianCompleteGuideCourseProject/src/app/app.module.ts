@@ -12,15 +12,14 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { NgbdPopoverBasicComponent } from './ngbd-popover-basic/ngbd-popover-basic.component';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { ShoppingListService } from './shopping-list/shopping-list.service';
 
 @NgModule({
   declarations: [
     AppComponent, 
     HeaderComponent, 
     RecipesComponent,RecipeListComponent, RecipeDetailComponent, RecipeItemComponent, ShoppingListComponent, ShoppingEditComponent,
-    NgbdPopoverBasicComponent,
     DropdownDirective
   ],
   imports: [
@@ -28,8 +27,7 @@ import { DropdownDirective } from './shared/dropdown.directive';
     FormsModule,
     NgbModule
   ],
-  providers: [],
-  exports: [NgbdPopoverBasicComponent],
-  bootstrap: [AppComponent, NgbdPopoverBasicComponent]
+  providers: [ShoppingListService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
