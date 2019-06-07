@@ -12,12 +12,14 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthGuardService } from './auth-guard.service';
 
 //canActivate: [AuthGuardService] means servers route is only accesible if method AuthGuard.canActivate returns true, which only happens if authService.isAuthenticated returns true;
+//canActivateChild: [AuthGuardService] now handles child routes only
 const appRoutes : Routes = [
   { path: '', component: HomeComponent }, 
   { path: 'users', component: UsersComponent, children: [
     { path: ':id/:name', component: UserComponent }
   ] }, 
-  { path: 'servers', canActivate: [AuthGuardService],  component: ServersComponent, children: [
+  // { path: 'servers', canActivate: [AuthGuardService],  component: ServersComponent, children: [
+  { path: 'servers', canActivateChild: [AuthGuardService],  component: ServersComponent, children: [
     { path: ':id', component: ServerComponent }, 
     { path: ':id/edit', component: EditServerComponent }, 
   ] },
