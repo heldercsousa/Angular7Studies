@@ -33,11 +33,16 @@ const appRoutes : Routes = [
 ];
 
 
+//useHash adds # after domain. For instance: http://localhost:4200/#/servers
+//it make server side route resolver to process only address before Hash (#).
+//all the after # will be resolved by Angular
+//It´s required cause the first route resolve try out is done by server. And it might return 404 NOT FOUND.
+//Instead, WE MIGHT ASSURE that SERVER REDIRECTS to INDEX.HTML, this way Angular can handle the route after #
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(appRoutes) //RouterModules special method registering our routes
+    RouterModule.forRoot(appRoutes, {useHash: true}) //RouterModules special method registering our routes
   ],
   exports: [RouterModule]
 })
