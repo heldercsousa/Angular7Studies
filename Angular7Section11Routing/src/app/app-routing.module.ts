@@ -11,6 +11,8 @@ import { ServerComponent } from './servers/server/server.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuardService } from './auth-guard.service';
 import { CanDeactivateGuardService } from './servers/edit-server/can-deactivate-guard.service';
+import { ErrorPageComponent } from './error-page/error-page/error-page.component';
+import { ServerResolverService } from './servers/server/server-resolver.service';
 
 //canActivate: [AuthGuardService] means servers route is only accesible if method AuthGuard.canActivate returns true, which only happens if authService.isAuthenticated returns true;
 //canActivateChild: [AuthGuardService] now handles acces try outs to child routes only
@@ -22,10 +24,11 @@ const appRoutes : Routes = [
   ] }, 
   // { path: 'servers', canActivate: [AuthGuardService],  component: ServersComponent, children: [
   { path: 'servers', canActivateChild: [AuthGuardService],  component: ServersComponent, children: [
-    { path: ':id', component: ServerComponent }, 
+    { path: ':id', component: ServerComponent, resolve: {server:ServerResolverService} },  //resolve takes a different property from other guards
     { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuardService] }, 
   ] },
-  { path: 'not-found', component: PageNotFoundComponent },
+  // { path: 'not-found', component: PageNotFoundComponent },
+  { path: 'not-found', component: ErrorPageComponent, data: {message: 'Page not found man!'} }, //passing static data to a route
   { path: '**', redirectTo: '/not-found' } //** means catch all paths you dont know. It has to be the last route setup
 ];
 

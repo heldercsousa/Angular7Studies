@@ -17,6 +17,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './auth.service';
 import { AuthGuardService } from './auth-guard.service';
 import { CanDeactivateGuardService } from './servers/edit-server/can-deactivate-guard.service';
+import { ErrorPageComponent } from './error-page/error-page/error-page.component';
+import { ServerResolverService } from './servers/server/server-resolver.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { CanDeactivateGuardService } from './servers/edit-server/can-deactivate-
     UserComponent,
     EditServerComponent,
     ServerComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,7 @@ import { CanDeactivateGuardService } from './servers/edit-server/can-deactivate-
     // RouterModule.forRoot(appRoutes) //RouterModule special method to register our routes
     AppRoutingModule
   ],
-  providers: [ServersService, AuthService, AuthGuardService, CanDeactivateGuardService],
+  providers: [ServersService, AuthService, AuthGuardService, CanDeactivateGuardService, ServerResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
