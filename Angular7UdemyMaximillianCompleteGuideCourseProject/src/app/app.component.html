@@ -3,8 +3,9 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-recipes *ngIf="currentLink===0"></app-recipes>
-      <app-shopping-list *ngIf="currentLink===1"></app-shopping-list>
+      <!-- <app-recipes *ngIf="currentLink===0"></app-recipes>
+      <app-shopping-list *ngIf="currentLink===1"></app-shopping-list> -->
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
