@@ -20,7 +20,7 @@ export class RecipeItemComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit() {
-    console.log(this.recipe);
+    //console.log(this.recipe);
   }
 
   // onSelected() {
