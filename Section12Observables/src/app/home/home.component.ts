@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { interval, Subscription, Observable } from 'rxjs'; //Observable actually are provided exclusively by rxjs library. Thats neither js nor angular
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +32,16 @@ export class HomeComponent implements OnInit, OnDestroy {
       }, 1000);
     });
 
-    this.firstObsSubscription = customIntervalObservable.subscribe(count => {
+    this.firstObsSubscription = customIntervalObservable
+    .pipe(
+      filter(data => {
+        return data > 0; //if returns false, the following steps are dropped
+      }),
+      map( (data:number)=>{
+        return 'Round: ' + (data +1);
+      })
+    )
+    .subscribe(count => { //now we subscribe to pipe, which may update the data somehow
       console.log(count);
     }, error => {
       console.log(error);
