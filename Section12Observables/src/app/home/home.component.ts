@@ -21,14 +21,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     //creating the same observable abve, but now a custom one from scratch
     const customIntervalObservable = Observable.create( observer => {
       let count = 0; //let is block-scope, var leaks the scope to the upward function
-      setInterval( () => {
+      setInterval( () => { //setInterval wrapped in our observable
         observer.next(count); //whenever setInterval fires, we let observer know about the count
+        if (count===2)
+          observer.complete(); //stops the observable, not throwing error anymore 
+        if (count>3)
+          observer.error(new Error('Count is greater 3!')); 
         count++;
       }, 1000);
     });
 
     this.firstObsSubscription = customIntervalObservable.subscribe(count => {
       console.log(count);
+    }, error => {
+      console.log(error);
+      alert(error.message);
+    }, () => { //this is the complete handler
+      console.log('completed');
     });
   }
 
