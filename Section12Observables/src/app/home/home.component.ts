@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs'; //Observable actually are provided exclusively by rxjs library. Thats neither js nor angular
 
 @Component({
@@ -6,7 +6,7 @@ import { interval, Subscription } from 'rxjs'; //Observable actually are provide
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   private firstObsSubscription: Subscription;
   constructor() { }
@@ -17,6 +17,11 @@ export class HomeComponent implements OnInit {
     .subscribe( count => {
       console.log(count);
     })
+
+   
   }
 
+  ngOnDestroy(): void {
+      this.firstObsSubscription.unsubscribe(); //whenever we leave this component, the subscription is cleared, preventing memory leaks
+  }
 }

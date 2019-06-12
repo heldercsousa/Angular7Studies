@@ -12,6 +12,11 @@ export class UserComponent implements OnInit {
   constructor(private route: ActivatedRoute) {
   }
 
+  /*
+  important note:
+  for observables provided by Angular, we dont need to Unsubscribe, since Angular does it for use.
+  Route.params is provided by Angular, automatically taking care about it.
+  */
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.id = +params.id;
