@@ -1,9 +1,10 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root' //makes prividers property declaration unnecessary on app.module
 })
 export class UserService {
-  activatedEmitter = new EventEmitter<boolean>();
+  activatedEmitter = new Subject<boolean>();
   constructor() { }
 }

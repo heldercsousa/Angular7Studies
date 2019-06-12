@@ -25,6 +25,10 @@ export class UserComponent implements OnInit {
   }
 
   onActivate(){
-    this.uerService.activatedEmitter.emit(true);
+    //subject is a special kind of observable. This is the recommended way
+    //prefer using Subject rather than EventEmitter and ordinary Observables, cause next may be called from outside.
+
+    this.uerService.activatedEmitter.next(true); 
   }
+    
 }
