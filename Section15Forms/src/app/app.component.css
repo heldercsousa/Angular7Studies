@@ -1,3 +1,8 @@
 .container {
   margin-top: 30px;
 }
+
+/* adiciona vermelho para qq input que tenha o ng-invalid e que tenha sido manipulado (ng-touched) */
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
