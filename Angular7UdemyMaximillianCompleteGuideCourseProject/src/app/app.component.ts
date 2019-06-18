@@ -7,8 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Recipe book';
-  currentLink = 0;
-  onHeaderLinkClicked(numb: number) {
-    this.currentLink = numb;
-  }
 }
