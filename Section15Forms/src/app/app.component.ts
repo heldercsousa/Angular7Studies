@@ -47,5 +47,9 @@ export class AppComponent {
     this.user.secret = this.signupForm.value.secret;
     this.user.gender = this.signupForm.value.gender;  
     this.user.answer = this.signupForm.value.questionAnswer;
+
+    //yout can passa the same object as in setValue() to reset() which will then reset the form to specific values.
+    //it reset ngTouched to false, for instance
+    this.signupForm.reset();
   }
 }
