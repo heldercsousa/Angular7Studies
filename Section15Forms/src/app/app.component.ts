@@ -11,9 +11,29 @@ export class AppComponent {
   defaultQuestion = 'pet';
   answer = "";
   genders = ['male', 'female'];
-  
+  user = { usernm: '', mail:'', secret: '', answer: '', gender: '' };
+  submitted = false;
+
   suggestUserName() {
     const suggestedName = 'Superuser';
+    //setValue allows to set the value of the role form
+    //this isnt the best approach
+    // this.signupForm.setValue({
+    //   userData: {
+    //     username: suggestedName,
+    //     email: 'heldercsousa@gmail.com'
+    //   },
+    //   secret: 'teacher',
+    //   questionAnswer: 'Question ueinn',
+    //   gender: 'male'
+    // });
+    //patchValue is the best approach, since it doesnt override all params like in previous one
+    //it´s available only on form property
+    this.signupForm.form.patchValue({
+      userData: {
+        username: suggestedName
+      }
+    })
   }
 
   // onSubmit(form: NgForm) {
@@ -21,6 +41,11 @@ export class AppComponent {
   // }
 
   onSubmit() {
-    console.log(this.signupForm);
+    this.submitted=true; 
+    this.user.usernm = this.signupForm.value.userData.username;
+    this.user.mail = this.signupForm.value.userData.email;
+    this.user.secret = this.signupForm.value.secret;
+    this.user.gender = this.signupForm.value.gender;  
+    this.user.answer = this.signupForm.value.questionAnswer;
   }
 }
