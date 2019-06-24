@@ -34,6 +34,15 @@
               [value]="gender">{{ gender }}
           </label>
         </div>
+        <div formArrayName="hobbies">
+          <h4>Your Hobbies</h4>
+          <!-- type="button" below prevents button to submit role form -->
+          <button class="btn btn-default" type="button" (click)="onAddHobby()">Add Hobby</button>
+          <div class="form-group" *ngFor="let hobbyControl of signupForm.get('hobbies').controls; let i = index">
+              <!-- [formControlName]="i" [] property binding is required since we are passing a variable rather than a string -->
+            <input type="text" class="form-control" [formControlName]="i">
+          </div>
+        </div>
         <span *ngIf="!signupForm.valid && signupForm.touched" class="help-block">Please enter valid data!</span>
         <button class="btn btn-primary" type="submit">Submit</button>
       </form>
