@@ -13,9 +13,12 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     //property is wrapped up with cotation mark just to be safe it will be kept like this when minification runs
     //it might not be necessary depending on the case
+    //userData now contains the overall form. So inputs now are nested inside it
     this.signupForm = new FormGroup({
-      'username' : new FormControl(null, Validators.required),
-      'email' : new FormControl(null, [Validators.required, Validators.email]),
+      'userData' : new FormGroup({
+        'username' : new FormControl(null, Validators.required),
+        'email' : new FormControl(null, [Validators.required, Validators.email]),
+      }),
       'gender' : new FormControl('male')
     });
   }
