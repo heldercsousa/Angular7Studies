@@ -23,6 +23,16 @@ export class AppComponent implements OnInit {
       'gender' : new FormControl('male'),
       'hobbies' : new FormArray([])
     });
+
+    //fired whenever something changes in the form
+    // this.signupForm.valueChanges.subscribe(
+    //   (value)=>console.log(value)
+    // );
+
+    //fired whenever form status changes
+    this.signupForm.statusChanges.subscribe(
+      (value)=>console.log(value)
+    );
   }
 
   onSubmit() {
