@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 })
 export class RecipeService {
   recipeSelected = new Subject<Recipe>();
+  recipesUpdated = new Subject();
 
   private recipes: Recipe[] = [
     new Recipe('A Test Recipe','This is simple','https://media.timeout.com/images/102063911/image.jpg', [new Ingredient("Apple", 2), new Ingredient('Brice', 1)]),
@@ -17,7 +18,7 @@ export class RecipeService {
     new Recipe('Fourth recipe', 'This is the fourth one', 'https://hips.hearstapps.com/del.h-cdn.co/assets/18/06/1600x800/landscape-1517928338-delish-mongolian-ramen-and-meatballs-still001.jpg?resize=640:*', [new Ingredient("flowers",1), new Ingredient("bread",2), new Ingredient("Bread", 4)]),
   ];
 
-  constructor(private slService: ShoppingListService) {}
+  constructor(private slService: ShoppingListService) {}  
 
   getRecipes() {
     return this.recipes.slice(); //return a new array copy, avoiding returning a reference
@@ -29,5 +30,20 @@ export class RecipeService {
   
   getRecipe(index: number) {
     return this.recipes[index];    
+  }
+
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.recipesUpdated.next();
+  }
+
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[index] = newRecipe;
+    this.recipesUpdated.next();
+  }
+
+  deleteRecipe(index: number) {
+    this.recipes.splice(index,1);
+    this.recipesUpdated.next();
   }
 }
