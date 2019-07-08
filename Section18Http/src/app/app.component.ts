@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +10,17 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
   loadedPosts = [];
-
+  isLoading = false;
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fectchPosts();
+  }
 
   onCreatePost(postData: { title: string; content: string }) {
-    // Send Http request
     this.http
       .post(
-        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+        'http://localhost:53244/api/todo',
         postData
       )
       .subscribe(responseData => {
@@ -26,10 +29,28 @@ export class AppComponent implements OnInit {
   }
 
   onFetchPosts() {
-    // Send Http request
+    this.fectchPosts();
   }
 
   onClearPosts() {
-    // Send Http request
+  }
+
+  private fectchPosts() {
+    this.isLoading = true;
+    this.http.get('http://localhost:53244/api/todo')
+    .pipe(
+      map(responseData => {
+        const postArray = [];
+// tslint:disable-next-line: forin
+        for (const key in responseData) {
+          postArray.push({ ...responseData[key], id: key });
+        }
+        return postArray;
+      })
+    )
+    .subscribe(posts => {
+      this.isLoading = false;
+      this.loadedPosts = posts;
+    });
   }
 }
