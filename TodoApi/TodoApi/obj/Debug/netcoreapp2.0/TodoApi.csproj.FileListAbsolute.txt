@@ -9,3 +9,14 @@ C:\Users\Usuario\Documents\Visual Studio 2017\Projects\TodoApi\TodoApi\obj\Debug
 C:\Users\Usuario\Documents\Visual Studio 2017\Projects\TodoApi\TodoApi\obj\Debug\netcoreapp2.0\TodoApi.AssemblyInfo.cs
 C:\Users\Usuario\Documents\Visual Studio 2017\Projects\TodoApi\TodoApi\obj\Debug\netcoreapp2.0\TodoApi.dll
 C:\Users\Usuario\Documents\Visual Studio 2017\Projects\TodoApi\TodoApi\obj\Debug\netcoreapp2.0\TodoApi.pdb
+E:\Angular7Studies\TodoApi\TodoApi\bin\Debug\netcoreapp2.0\TodoApi.deps.json
+E:\Angular7Studies\TodoApi\TodoApi\bin\Debug\netcoreapp2.0\TodoApi.runtimeconfig.json
+E:\Angular7Studies\TodoApi\TodoApi\bin\Debug\netcoreapp2.0\TodoApi.runtimeconfig.dev.json
+E:\Angular7Studies\TodoApi\TodoApi\bin\Debug\netcoreapp2.0\TodoApi.dll
+E:\Angular7Studies\TodoApi\TodoApi\bin\Debug\netcoreapp2.0\TodoApi.pdb
+E:\Angular7Studies\TodoApi\TodoApi\obj\Debug\netcoreapp2.0\TodoApi.csprojAssemblyReference.cache
+E:\Angular7Studies\TodoApi\TodoApi\obj\Debug\netcoreapp2.0\TodoApi.csproj.CoreCompileInputs.cache
+E:\Angular7Studies\TodoApi\TodoApi\obj\Debug\netcoreapp2.0\TodoApi.AssemblyInfoInputs.cache
+E:\Angular7Studies\TodoApi\TodoApi\obj\Debug\netcoreapp2.0\TodoApi.AssemblyInfo.cs
+E:\Angular7Studies\TodoApi\TodoApi\obj\Debug\netcoreapp2.0\TodoApi.dll
+E:\Angular7Studies\TodoApi\TodoApi\obj\Debug\netcoreapp2.0\TodoApi.pdb

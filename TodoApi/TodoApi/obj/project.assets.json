@@ -13599,11 +13599,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Documents\\Visual Studio 2017\\Projects\\TodoApi\\TodoApi\\TodoApi.csproj",
+      "projectUniqueName": "E:\\Angular7Studies\\TodoApi\\TodoApi\\TodoApi.csproj",
       "projectName": "TodoApi",
-      "projectPath": "C:\\Users\\Usuario\\Documents\\Visual Studio 2017\\Projects\\TodoApi\\TodoApi\\TodoApi.csproj",
+      "projectPath": "E:\\Angular7Studies\\TodoApi\\TodoApi\\TodoApi.csproj",
       "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Documents\\Visual Studio 2017\\Projects\\TodoApi\\TodoApi\\obj\\",
+      "outputPath": "E:\\Angular7Studies\\TodoApi\\TodoApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
