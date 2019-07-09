@@ -27,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isLoading = false;
       this.loadedPosts = posts;
     }, error => {
+      this.isLoading = false;
       this.error = error.message;
     });
   }
@@ -44,6 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isLoading = false;
       this.loadedPosts = posts;
     }, error => {
+      this.isLoading = false;
       this.error = error.message;
     });
   }
@@ -52,6 +54,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.postService.clearPosts().subscribe(() => {
       this.loadedPosts = [];
     });
+  }
+
+  onHandleError() {
+    this.error = null;
+    this.isLoading = false;
   }
 
 }
