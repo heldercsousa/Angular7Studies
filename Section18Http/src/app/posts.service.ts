@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs'; //throwError gives an observable
 
@@ -25,7 +25,19 @@ export class PostsService {
   }
 
   fetchPosts() {
-    return this.http.get('http://localhost:53244/api/todo')
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty');
+    searchParams = searchParams.append('custom', 'key');
+
+    return this.http
+    .get(
+      'http://localhost:53244/api/todo',
+      {
+        headers: new HttpHeaders({'Custom-Header': 'Hello'}),
+        // params: new HttpParams().set('print', 'pretty')
+        params: searchParams
+      }
+    )
     .pipe(
       map(responseData => {
         const postArray = [];
