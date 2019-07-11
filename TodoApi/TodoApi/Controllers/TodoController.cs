@@ -31,8 +31,7 @@ namespace TodoApi.Controllers
         [HttpGet]
         public IEnumerable<TodoItem> GetTodoItems()
         {
-            throw new Exception("que bosta.. deu erro!");
-            //return _context.TodoItems;
+            return _context.TodoItems;
         }
 
         // GET: api/Todo/5
@@ -129,6 +128,8 @@ namespace TodoApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteTodo()
         {
+            throw new Exception("que bosta.. deu erro!");
+            /*
             foreach (var item in _context.TodoItems)
             {
                 _context.TodoItems.Remove(item);
@@ -136,7 +137,7 @@ namespace TodoApi.Controllers
             
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok();*/
         }
 
         private bool TodoItemExists(int id)

@@ -13,7 +13,7 @@ export class AppComponent implements OnInit, OnDestroy {
   loadedPosts = [];
   isLoading = false;
   error = null;
-  private errorSubscription : Subscription;
+  private errorSubscription: Subscription;
 
   constructor(private http: HttpClient, private postService: PostsService) {}
 
@@ -53,6 +53,9 @@ export class AppComponent implements OnInit, OnDestroy {
   onClearPosts() {
     this.postService.clearPosts().subscribe(() => {
       this.loadedPosts = [];
+    }, error => {
+      this.isLoading = false;
+      this.error = error.message;
     });
   }
 

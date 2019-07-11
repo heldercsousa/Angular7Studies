@@ -42,6 +42,14 @@ export class PostsService {
   }
 
   clearPosts() {
-    return this.http.delete('http://localhost:53244/api/todo');
+    return this.http.delete('http://localhost:53244/api/todo')
+      .pipe(
+        map(responseData => {
+          return responseData;
+        }),
+        catchError(errorRes => {
+          return throwError(errorRes);
+        })
+      );
   }
 }
