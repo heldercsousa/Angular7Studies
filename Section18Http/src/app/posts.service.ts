@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams, HttpEventType } from '@angular/common/http';
+import { map, catchError, tap } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs'; //throwError gives an observable
 
 @Injectable({
@@ -8,17 +8,23 @@ import { Subject, throwError } from 'rxjs'; //throwError gives an observable
 })
 export class PostsService {
   error = new Subject<string>();
+
   constructor(private http: HttpClient) {
   }
+
   createAndStorePost(title: string, content: string) {
     const postData = { title: title, content: content };
     this.http
     .post(
       'http://localhost:53244/api/todo',
-      postData
+      postData,
+      {
+        observe: 'response'
+      }
     )
-    .subscribe(posts => {
-
+    .subscribe(responseData => {
+      console.log('1111');
+      console.log(responseData.body);
     }, error => {
       this.error.next(error.message);
     });
@@ -54,14 +60,27 @@ export class PostsService {
   }
 
   clearPosts() {
-    return this.http.delete('http://localhost:53244/api/todo')
-      .pipe(
-        map(responseData => {
-          return responseData;
-        }),
-        catchError(errorRes => {
-          return throwError(errorRes);
-        })
-      );
+    return this.http.delete(
+      'http://localhost:53244/api/todo',
+      {
+        observe: 'events'
+      }
+    )
+    .pipe(
+      tap(
+        event => {
+          console.log(event);
+          if (event.type === HttpEventType.Sent) {
+           // ...
+          }
+          if (event.type === HttpEventType.Response) {
+            console.log(event.body);
+          }
+        }
+      ),
+      catchError(errorRes => {
+        return throwError(errorRes);
+      })
+    );
   }
 }
