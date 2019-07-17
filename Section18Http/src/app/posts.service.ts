@@ -41,7 +41,8 @@ export class PostsService {
       {
         headers: new HttpHeaders({'Custom-Header': 'Hello'}),
         // params: new HttpParams().set('print', 'pretty')
-        params: searchParams
+        params: searchParams,
+        responseType: 'json' 
       }
     )
     .pipe(
@@ -63,7 +64,8 @@ export class PostsService {
     return this.http.delete(
       'http://localhost:53244/api/todo',
       {
-        observe: 'events'
+        observe: 'events',
+        responseType:  'blob'//'json' json is the standard. 'blob' is used for files. 'text' if you dont want to convert to javascript object
       }
     )
     .pipe(
