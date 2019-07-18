@@ -13593,23 +13593,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\heldersousa\\.nuget\\packages\\": {},
+    "C:\\Users\\Usuario\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\heldersousa\\Documents\\Angular7Studies\\TodoApi\\TodoApi\\TodoApi.csproj",
+      "projectUniqueName": "E:\\Angular7Studies\\TodoApi\\TodoApi\\TodoApi.csproj",
       "projectName": "TodoApi",
-      "projectPath": "C:\\Users\\heldersousa\\Documents\\Angular7Studies\\TodoApi\\TodoApi\\TodoApi.csproj",
-      "packagesPath": "C:\\Users\\heldersousa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\heldersousa\\Documents\\Angular7Studies\\TodoApi\\TodoApi\\obj\\",
+      "projectPath": "E:\\Angular7Studies\\TodoApi\\TodoApi\\TodoApi.csproj",
+      "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+      "outputPath": "E:\\Angular7Studies\\TodoApi\\TodoApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\heldersousa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13617,8 +13617,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://azure/DefaultCollection/_packaging/ANEEL/nuget/v3/index.json": {},
-        "http://bibliotecas.aneel.net/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
