@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipesBookApi.Model;
 
 namespace RecipesBookApi.Migrations
 {
     [DbContext(typeof(RecipeDBContext))]
-    partial class RecipeDBContextModelSnapshot : ModelSnapshot
+    [Migration("20190719200255_RelacaoRecipeIngredient")]
+    partial class RelacaoRecipeIngredient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,8 +37,8 @@ namespace RecipesBookApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            Amount = 200,
+                            Id = 333,
+                            Amount = 56,
                             Name = "farinha"
                         });
                 });
@@ -56,15 +58,6 @@ namespace RecipesBookApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Recipes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "TESTe",
-                            ImagePath = "",
-                            Name = "Bolo"
-                        });
                 });
 
             modelBuilder.Entity("RecipesBookApi.Model.RecipeIngredient", b =>
@@ -78,13 +71,6 @@ namespace RecipesBookApi.Migrations
                     b.HasIndex("IngredientId");
 
                     b.ToTable("RecipeIngredient");
-
-                    b.HasData(
-                        new
-                        {
-                            RecipeId = 1,
-                            IngredientId = 1
-                        });
                 });
 
             modelBuilder.Entity("RecipesBookApi.Model.RecipeIngredient", b =>

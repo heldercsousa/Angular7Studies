@@ -57,5 +57,7 @@ namespace RecipesBookApi.Migrations
             migrationBuilder.DropTable(
                 name: "Recipes");
         }
+
+        
     }
 }
