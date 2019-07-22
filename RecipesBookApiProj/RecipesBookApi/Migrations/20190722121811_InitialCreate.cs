@@ -23,7 +23,7 @@ namespace RecipesBookApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ingredient",
+                name: "Ingredients",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -34,9 +34,9 @@ namespace RecipesBookApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ingredient", x => x.Id);
+                    table.PrimaryKey("PK_Ingredients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ingredient_Recipes_RecipeId",
+                        name: "FK_Ingredients_Recipes_RecipeId",
                         column: x => x.RecipeId,
                         principalTable: "Recipes",
                         principalColumn: "Id",
@@ -44,20 +44,18 @@ namespace RecipesBookApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ingredient_RecipeId",
-                table: "Ingredient",
+                name: "IX_Ingredients_RecipeId",
+                table: "Ingredients",
                 column: "RecipeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Ingredient");
+                name: "Ingredients");
 
             migrationBuilder.DropTable(
                 name: "Recipes");
         }
-
-        
     }
 }
