@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class RecipeDetailComponent implements OnInit {
   recipe : Recipe;
   id: number;
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router, private dataStore: DataStorageService) { }
 
   ngOnInit() {
       this.route.params.subscribe(
@@ -35,7 +36,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDeleteRecipe() {
-    this.recipeService.deleteRecipe(this.id);
+    this.dataStore.deleteRecipe(this.recipe.id);
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 }

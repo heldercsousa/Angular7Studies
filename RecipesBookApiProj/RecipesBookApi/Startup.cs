@@ -31,7 +31,11 @@ namespace RecipesBookApi
                     }
                 );
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddJsonOptions(
+                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=RecipesDB;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<RecipeDBContext>(options => options.UseSqlServer(connection));

@@ -24,7 +24,10 @@ namespace RecipesBookApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes()
         {
-            return await _context.Recipes.ToListAsync();
+            var tt=_context.Recipes.Include("Ingredients").First();
+            var xx = tt;
+
+            return await _context.Recipes.Include("Ingredients").ToListAsync();
         }
 
         // GET: api/Recipes/5
@@ -87,6 +90,10 @@ namespace RecipesBookApi.Controllers
             }
 
             _context.Entry(recipe).State = EntityState.Modified;
+            foreach (var ingredient in recipe.Ingredients)
+            {
+                _context.Entry(ingredient).State = EntityState.Modified; 
+            }
 
             try
             {
