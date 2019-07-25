@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RecipeService } from '../recipes/recipe.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Recipe } from '../recipes/recipe.model';
 import { FormGroup } from '@angular/forms';
 
@@ -23,18 +23,24 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    this.http.get<Recipe[]>('http://localhost:8888/api/recipes')
-    .pipe(map(response => {
-      return response.map( recipe => { // It´s a normal javascript array method.  Allow to transform the array into another pattern
-        return {
-          ...recipe, /// copy all the existing data in recipe object
-          ingredients: recipe.ingredients ? recipe.ingredients : [] // returns an empty array if it is undefined
-        };
-      });
-    }))
-    .subscribe(recipes => {
-      this.recipeService.setRecipes(recipes);
-    });
+    return this.http.get<Recipe[]>('http://localhost:8888/api/recipes')
+    .pipe(
+      map(response => {
+        return response.map( recipe => { // It´s a normal javascript array method.  Allow to transform the array into another pattern
+          return {
+            ...recipe, /// copy all the existing data in recipe object
+            ingredients: recipe.ingredients ? recipe.ingredients : [] // returns an empty array if it is undefined
+          };
+        });
+      }), 
+      tap(recipes => { // tap allows to execute some code in place without altering the data
+        this.recipeService.setRecipes(recipes);
+      })
+    );
+    // subscribe removed to avoid error when recipes detail page is reloaded by the user, which makes angular state reset and consequently lost of recipes array of data, causing an error in this page
+    // .subscribe(recipes => {
+    //   this.recipeService.setRecipes(recipes);
+    // });
   }
 
   addRecipe(recipeData: Recipe) {
@@ -49,14 +55,14 @@ export class DataStorageService {
     // https://www.learnentityframeworkcore.com/relationships/managing-one-to-many-relationships
     this.http.put('http://localhost:8888/api/recipes/' + recipeData.id, recipeData)
     .subscribe(reciperesponse => {
-      this.fetchRecipes();
+      this.fetchRecipes().subscribe();
       //this.recipeService.addRecipe(reciperesponse);
     });
   }
 
   deleteRecipe(recipeId: number) {
     this.http.delete('http://localhost:8888/api/recipes/'+recipeId).subscribe(recipeResponse => {
-      this.fetchRecipes();
+      this.fetchRecipes().subscribe();
     });
   }
 }
