@@ -10,7 +10,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class DataStorageService {
 
-  constructor(private http: HttpClient, private recipeService: RecipeService) { 
+  constructor(private http: HttpClient, private recipeService: RecipeService) {
 
   }
 
@@ -25,9 +25,9 @@ export class DataStorageService {
   fetchRecipes() {
     this.http.get<Recipe[]>('http://localhost:8888/api/recipes')
     .pipe(map(response => {
-      return response.map( recipe => { // goes through all the recipes.It´s a normal javascript array method
+      return response.map( recipe => { // It´s a normal javascript array method.  Allow to transform the array into another pattern
         return {
-          ...recipe, /// copy all the existing data in recipe
+          ...recipe, /// copy all the existing data in recipe object
           ingredients: recipe.ingredients ? recipe.ingredients : [] // returns an empty array if it is undefined
         };
       });
