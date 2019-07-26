@@ -19,8 +19,8 @@ const appRoutes: Routes = [
 
     { path: ':id/edit', component: RecipeEditComponent },
   ]},
-  { path: 'shopping-list', component: ShoppingListComponent},
-  { path: 'auth', component: AuthComponent},
+  { path: 'shopping-list', component: ShoppingListComponent },
+  { path: 'auth', component: AuthComponent },
 ];
 
 //exports: [RouterModule] required since we are in an extra module and we want it working in the main module

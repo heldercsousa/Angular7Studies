@@ -31,14 +31,31 @@ namespace RecipesBookApi
                     }
                 );
             });
+
+
+            /*
+            Register the minimum identityserver4 required dependencies -- see https://www.scottbrady91.com/Identity-Server/Getting-Started-with-IdentityServer-4#Entity-Framework-Core
+            What we have done here is registered IdentityServer in our DI container using AddIdentityServer, used a demo signing 
+            certificate with AddDeveloperSigningCredential, and used in-memory stores for our clients, resources and users. By using 
+            AddIdentityServer we are also causing all generated tokens/grants to be stored in memory. We will add actual clients, 
+            resources and users shortly. 
+            */
+            services.AddIdentityServer()
+            .AddInMemoryClients(new List<IdentityServer4.Models.Client>())
+            .AddInMemoryIdentityResources(new List<IdentityServer4.Models.IdentityResource>())
+            .AddInMemoryApiResources(new List<IdentityServer4.Models.ApiResource>())
+            .AddTestUsers(new List<IdentityServer4.Test.TestUser>())
+            .AddDeveloperSigningCredential();
+
             services.AddMvc()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddJsonOptions(
                 options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=RecipesDB;Trusted_Connection=True;ConnectRetryCount=0";
-            services.AddDbContext<RecipeDBContext>(options => options.UseSqlServer(connection));
+            var connect = Configuration.GetConnectionString("RecipesDBConection");
+            //var connection = @"Server=(localdb)\mssqllocaldb;Database=RecipesDB;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<RecipeDBContext>(options => options.UseSqlServer(connect));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +70,11 @@ namespace RecipesBookApi
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // add the IdentityServer middleware to the HTTP pipeline
+            // UseIdentityServer allows IdentityServer to start intercepting routes and handle requests.
+            app.UseIdentityServer();
+
             app.UseCors("uai");
             app.UseHttpsRedirection();
             app.UseMvc();
