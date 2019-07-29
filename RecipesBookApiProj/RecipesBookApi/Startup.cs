@@ -32,7 +32,6 @@ namespace RecipesBookApi
                 );
             });
 
-
             /*
             Register the minimum identityserver4 required dependencies -- see https://www.scottbrady91.com/Identity-Server/Getting-Started-with-IdentityServer-4#Entity-Framework-Core
             What we have done here is registered IdentityServer in our DI container using AddIdentityServer, used a demo signing 
@@ -41,10 +40,10 @@ namespace RecipesBookApi
             resources and users shortly. 
             */
             services.AddIdentityServer()
-            .AddInMemoryClients(new List<IdentityServer4.Models.Client>())
-            .AddInMemoryIdentityResources(new List<IdentityServer4.Models.IdentityResource>())
-            .AddInMemoryApiResources(new List<IdentityServer4.Models.ApiResource>())
-            .AddTestUsers(new List<IdentityServer4.Test.TestUser>())
+            .AddInMemoryClients(Clients.Get())
+            .AddInMemoryIdentityResources(Resources.GetIdentityResources())
+            .AddInMemoryApiResources(Resources.GetApiResources())
+            .AddTestUsers(Users.Get())
             .AddDeveloperSigningCredential();
 
             services.AddMvc()
@@ -52,6 +51,27 @@ namespace RecipesBookApi
             .AddJsonOptions(
                 options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+
+
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultScheme = "cookie";
+            //})
+            //.AddCookie("cookie");
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "cookie";
+                options.DefaultChallengeScheme = "oidc";
+            })
+            .AddCookie("cookie")
+            .AddOpenIdConnect("oidc", options =>
+            {
+                options.Authority = "https://localhost:8888/";
+                options.ClientId = "openIdConnectClient";
+                options.SignInScheme = "cookie";
+            });
+
 
             var connect = Configuration.GetConnectionString("RecipesDBConection");
             //var connection = @"Server=(localdb)\mssqllocaldb;Database=RecipesDB;Trusted_Connection=True;ConnectRetryCount=0";
@@ -77,7 +97,11 @@ namespace RecipesBookApi
 
             app.UseCors("uai");
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
+
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

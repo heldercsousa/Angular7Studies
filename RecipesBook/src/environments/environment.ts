@@ -8,8 +8,8 @@ export const environment: IEnvironment = {
   production: false,
   enviromentName: "development",
   idSistema: 1,
-  spaBaseUrl: "http://localhost:1234", 
-  apiBaseUrl: "https://localhost:44335/api"
+  spaBaseUrl: "http://localhost:7899", 
+  apiBaseUrl: "https://ng-complete-guide-e3459.firebaseio.com/" //"https://localhost:44335/api"
 };
 
 /*
