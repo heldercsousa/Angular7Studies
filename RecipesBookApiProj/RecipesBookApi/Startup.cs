@@ -32,6 +32,7 @@ namespace RecipesBookApi
                 );
             });
 
+            https://fullstackmark.com/post/21/user-authentication-and-identity-with-angular-aspnet-core-and-identityserver
             /*
             Register the minimum identityserver4 required dependencies -- see https://www.scottbrady91.com/Identity-Server/Getting-Started-with-IdentityServer-4#Entity-Framework-Core
             What we have done here is registered IdentityServer in our DI container using AddIdentityServer, used a demo signing 
