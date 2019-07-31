@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecipesBookApi.Model;
@@ -22,7 +20,7 @@ namespace RecipesBookApi.Controllers
         }
 
         // GET: api/Recipes
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes()
         {
             var tt=_context.Recipes.Include("Ingredients").First();
@@ -32,7 +30,7 @@ namespace RecipesBookApi.Controllers
         }
 
         // GET: api/Recipes/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public async Task<ActionResult<Recipe>> GetRecipe(int id)
         {
             var recipe = await _context.Recipes.FindAsync(id);
@@ -46,7 +44,7 @@ namespace RecipesBookApi.Controllers
         }
 
         // PUT: api/Recipes
-        [HttpPut]
+        [HttpPut, Authorize]
         public async Task<IActionResult> PutRecipes(IEnumerable<Recipe> recipes)
         {
             if (recipes==null || recipes.Count() == 0)
@@ -82,7 +80,7 @@ namespace RecipesBookApi.Controllers
         }
 
         // PUT: api/Recipes/5
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize]
         public async Task<IActionResult> PutRecipe(int id, Recipe recipe)
         {
             if (id != recipe.Id)
@@ -116,7 +114,7 @@ namespace RecipesBookApi.Controllers
         }
 
         // POST: api/Recipes
-        [HttpPost]
+        [HttpPost, Authorize]
         public async Task<ActionResult<Recipe>> PostRecipe(Recipe recipe)
         {
             _context.Recipes.Add(recipe);
@@ -126,7 +124,7 @@ namespace RecipesBookApi.Controllers
         }
 
         // DELETE: api/Recipes/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         public async Task<ActionResult<Recipe>> DeleteRecipe(int id)
         {
             var recipe = await _context.Recipes.FindAsync(id);

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using RecipesBookApi.Model;
+using System.Text;
 
 namespace RecipesBookApi
 {
@@ -22,6 +23,28 @@ namespace RecipesBookApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // https://jonhilton.net/security/apis/secure-your-asp.net-core-2.0-api-part-2---jwt-bearer-authentication/
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = Configuration["Jwt:Issuer"],
+                            ValidAudience = Configuration["Jwt:Issuer"],
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                        };
+                    });
+ 
+            services.AddMvc()
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddJsonOptions(
+                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
             services.AddCors(options =>
             {
                 options.AddPolicy("uai",
@@ -30,47 +53,6 @@ namespace RecipesBookApi
                         builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials();
                     }
                 );
-            });
-
-            https://fullstackmark.com/post/21/user-authentication-and-identity-with-angular-aspnet-core-and-identityserver
-            /*
-            Register the minimum identityserver4 required dependencies -- see https://www.scottbrady91.com/Identity-Server/Getting-Started-with-IdentityServer-4#Entity-Framework-Core
-            What we have done here is registered IdentityServer in our DI container using AddIdentityServer, used a demo signing 
-            certificate with AddDeveloperSigningCredential, and used in-memory stores for our clients, resources and users. By using 
-            AddIdentityServer we are also causing all generated tokens/grants to be stored in memory. We will add actual clients, 
-            resources and users shortly. 
-            */
-            services.AddIdentityServer()
-            .AddInMemoryClients(Clients.Get())
-            .AddInMemoryIdentityResources(Resources.GetIdentityResources())
-            .AddInMemoryApiResources(Resources.GetApiResources())
-            .AddTestUsers(Users.Get())
-            .AddDeveloperSigningCredential();
-
-            services.AddMvc()
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-            .AddJsonOptions(
-                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
-
-
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultScheme = "cookie";
-            //})
-            //.AddCookie("cookie");
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = "cookie";
-                options.DefaultChallengeScheme = "oidc";
-            })
-            .AddCookie("cookie")
-            .AddOpenIdConnect("oidc", options =>
-            {
-                options.Authority = "https://localhost:8888/";
-                options.ClientId = "openIdConnectClient";
-                options.SignInScheme = "cookie";
             });
 
 
@@ -92,17 +74,13 @@ namespace RecipesBookApi
                 app.UseHsts();
             }
 
-            // add the IdentityServer middleware to the HTTP pipeline
-            // UseIdentityServer allows IdentityServer to start intercepting routes and handle requests.
-            app.UseIdentityServer();
-
             app.UseCors("uai");
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();
 
-            app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+            //app.UseStaticFiles();
+            //app.UseMvcWithDefaultRoute();
         }
     }
 }

@@ -9,7 +9,7 @@ export const environment: IEnvironment = {
   enviromentName: "development",
   idSistema: 1,
   spaBaseUrl: "http://localhost:7899", 
-  apiBaseUrl: "https://ng-complete-guide-e3459.firebaseio.com/" //"https://localhost:44335/api"
+  apiBaseUrl: "http://localhost:8888/api"
 };
 
 /*
