@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { RecipeService } from '../recipes/recipe.service';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, take, exhaustMap } from 'rxjs/operators';
 import { Recipe } from '../recipes/recipe.model';
 import { FormGroup } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataStorageService {
 
-  constructor(private http: HttpClient, private recipeService: RecipeService) {
-
+  constructor(private http: HttpClient, private recipeService: RecipeService, private authService: AuthService) {
   }
 
   storeRecipes() {
@@ -23,24 +23,34 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    return this.http.get<Recipe[]>('http://localhost:8888/api/recipes')
-    .pipe(
-      map(response => {
-        return response.map( recipe => { // It´s a normal javascript array method.  Allow to transform the array into another pattern
-          return {
-            ...recipe, /// copy all the existing data in recipe object
-            ingredients: recipe.ingredients ? recipe.ingredients : [] // returns an empty array if it is undefined
-          };
-        });
-      }), 
-      tap(recipes => { // tap allows to execute some code in place without altering the data
-        this.recipeService.setRecipes(recipes);
-      })
+    // exhaustMap waits for the observable until complete. Inside it we return an new observable
+    // we are interested in catch just one value from user subject
+    return this.authService.user.pipe(take(1), 
+    exhaustMap(user => {
+      let headerr = new HttpHeaders();
+      headerr.set('Content-Type', 'application/json');
+      if (user) {
+        headerr.set('Bearer ',user.token);
+      }
+      return this.http.get<Recipe[]>('http://localhost:8888/api/recipes', 
+      {
+        headers: headerr
+        //params: new HttpParams().set('auth', user?user.token:'')
+      }) //in the end we have a Http Observable
+    }), 
+    map(response => {
+      return response.map( recipe => { // It´s a normal javascript array method.  Allow to transform the array into another pattern
+        return {
+          ...recipe, /// copy all the existing data in recipe object
+          ingredients: recipe.ingredients ? recipe.ingredients : [] // returns an empty array if it is undefined
+        };
+      });
+    }), 
+    tap(recipes => { // tap allows to execute some code in place without altering the data
+      this.recipeService.setRecipes(recipes);
+    })
     );
-    // subscribe removed to avoid error when recipes detail page is reloaded by the user, which makes angular state reset and consequently lost of recipes array of data, causing an error in this page
-    // .subscribe(recipes => {
-    //   this.recipeService.setRecipes(recipes);
-    // });
+
   }
 
   addRecipe(recipeData: Recipe) {

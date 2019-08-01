@@ -6,6 +6,8 @@ import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { debug } from 'util';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({
@@ -18,14 +20,25 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   
   recipes: Recipe[];
   recipeUpdSubs: Subscription;
-  
-  constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute, private dataStore: DataStorageService) { }
+  errorUnauthorized: boolean;  
+  isAuthenticated: boolean;
+  userSub: Subscription;
+
+  constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute, private dataStore: DataStorageService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.dataStore.fetchRecipes().subscribe();
+    this.dataStore.fetchRecipes().subscribe(()=>{}, error => {
+      if (error.status === 401) {
+        this.errorUnauthorized = true;
+        //this.router.navigate(['/auth']);
+      }
+    });
     this.recipeUpdSubs = this.recipeService.recipesUpdated.subscribe(()=> {
       this.recipes = this.recipeService.getRecipes();
     });
+    this.userSub = this.authService.user.subscribe(user => {
+      this.isAuthenticated = !!user; //trick for the following - !user ? false : true; 
+   });
   }
 
   onNewClicked() {
@@ -37,5 +50,9 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   // }
   ngOnDestroy(): void {
     this.recipeUpdSubs.unsubscribe();
+  }
+
+  get IsAuthenticated() {
+    return this.isAuthenticated;
   }
 }

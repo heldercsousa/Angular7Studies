@@ -10,7 +10,7 @@ namespace RecipesBookApi.Service
     {
         List<Usuario> _Usuarios = new List<Usuario>()
         {
-            new Usuario{ Email = "heldercsousa@gmail.com", IdUsuario="1", Nome="Helder Sousa", UserName="Helder Carvalho de Sousa", Password = "pass"}
+            new Usuario { Email = "heldercsousa@gmail.com", IdUsuario="1", Nome="Helder Sousa", UserName="Helder Carvalho de Sousa", Password = "pass"}
         };
 
         public Usuario getUsuario(string email, string password)

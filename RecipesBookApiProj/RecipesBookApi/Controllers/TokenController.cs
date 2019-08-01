@@ -31,14 +31,20 @@ namespace RecipesBookApi.Controllers
 
             if (user != null)
             {
-                var tokenString = BuildToken(user);
-                response = Ok(new { token = tokenString });
+                var token = BuildToken(user);
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+                response = Ok(new {
+                    email =user.Email,
+                    id =user.Name,
+                    _token = tokenString,
+                    _tokenExpirationDate = token.ValidTo.Ticks
+                });
             }
 
             return response;
         }
 
-        private string BuildToken(UserModel user)
+        private JwtSecurityToken BuildToken(UserModel user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -48,7 +54,7 @@ namespace RecipesBookApi.Controllers
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: creds);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return token;
         }
 
         private UserModel Authenticate(LoginModel login)
@@ -57,7 +63,7 @@ namespace RecipesBookApi.Controllers
 
             if (login.Email == "heldercsousa@gmail.com" && login.Password == "pass")
             {
-                user = new UserModel { Name = "Administrator", Email = "heldercsousa@gmail.com" };
+                user = new UserModel { Name = "Administrador", Email = "heldercsousa@gmail.com" };
             }
             else
             {

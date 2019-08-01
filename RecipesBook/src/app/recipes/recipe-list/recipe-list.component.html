@@ -1,14 +1,25 @@
-<div class="row">
-    <div class="col-xs-12">
-        <button class="btn btn-success" (click)="onNewClicked()">
-            New Recipe
-        </button>
+<div *ngIf="!errorUnauthorized">
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-success" (click)="onNewClicked()">
+                New Recipe
+            </button>
+        </div>
+    </div>
+    <hr>
+    <div class="row">  
+        <div class="col-xs-12">
+            <!-- <app-recipe-item *ngFor="let recipeitem of recipes" [recipe]="recipeitem" (recipeSelected)="onRecipeSelected(recipeitem)"></app-recipe-item> -->
+            <app-recipe-item *ngFor="let recipeitem of recipes; let i=index" [recipe]="recipeitem" [index]="i"></app-recipe-item>
+        </div>
     </div>
 </div>
-<hr>
-<div class="row">  
-    <div class="col-xs-12">
-        <!-- <app-recipe-item *ngFor="let recipeitem of recipes" [recipe]="recipeitem" (recipeSelected)="onRecipeSelected(recipeitem)"></app-recipe-item> -->
-        <app-recipe-item *ngFor="let recipeitem of recipes; let i=index" [recipe]="recipeitem" [index]="i"></app-recipe-item>
+<div *ngIf="errorUnauthorized">
+    <div class="alert alert-danger" role="alert">
+        <h4>Sem autorização de acesso</h4>
+        <div *ngIf="!isAuthenticated">
+            <a routerLink="/auth">Login</a> before navigating to here again
+        </div>
     </div>
 </div>
+

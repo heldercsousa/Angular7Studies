@@ -38,12 +38,12 @@ namespace RecipesBookApi
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                         };
                     });
- 
+
             services.AddMvc()
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-            .AddJsonOptions(
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            /*.AddJsonOptions(
                 options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
+            );*/
 
             services.AddCors(options =>
             {
