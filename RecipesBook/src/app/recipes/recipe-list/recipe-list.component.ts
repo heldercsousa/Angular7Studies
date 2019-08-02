@@ -27,7 +27,10 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute, private dataStore: DataStorageService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.dataStore.fetchRecipes().subscribe(()=>{}, error => {
+    this.dataStore.fetchRecipes().subscribe(data=>{
+      console.log('recipes list returned');
+      console.log(data);
+    }, error => {
       if (error.status === 401) {
         this.errorUnauthorized = true;
         //this.router.navigate(['/auth']);

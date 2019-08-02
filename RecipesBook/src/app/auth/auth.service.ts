@@ -31,7 +31,7 @@ export class AuthService {
       }
     )
     .pipe(catchError(this.handleError), tap(resData => {
-      debugger;
+      // debugger;
       const user = new User(resData.email, resData.id, resData._token, new Date(resData._expirationDate));
       this.user.next(user);
     }));
