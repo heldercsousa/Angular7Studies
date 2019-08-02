@@ -33,11 +33,12 @@ namespace RecipesBookApi.Controllers
             {
                 var token = BuildToken(user);
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-                response = Ok(new {
-                    email =user.Email,
-                    id =user.Name,
+                response = Ok(new
+                {
+                    email = user.Email,
+                    id = user.Name,
                     _token = tokenString,
-                    _tokenExpirationDate = token.ValidTo.Ticks
+                    _tokenExpirationDate = new TimeSpan((token.ValidTo - DateTime.Now).Ticks).TotalSeconds
                 });
             }
 

@@ -16,7 +16,7 @@
 </div>
 <div *ngIf="errorUnauthorized">
     <div class="alert alert-danger" role="alert">
-        <h4>Sem autorização de acesso</h4>
+        <h4>Unauthorized</h4>
         <div *ngIf="!isAuthenticated">
             <a routerLink="/auth">Login</a> before navigating to here again
         </div>
