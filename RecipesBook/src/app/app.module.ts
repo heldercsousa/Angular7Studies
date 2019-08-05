@@ -23,18 +23,25 @@ import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component';
+import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
 
 @NgModule({
   declarations: [
     AppComponent, 
     HeaderComponent, 
-    RecipesComponent,RecipeListComponent, RecipeDetailComponent, RecipeItemComponent, ShoppingListComponent, ShoppingEditComponent,
+    RecipesComponent,
+    RecipeListComponent, 
+    RecipeDetailComponent, 
+    RecipeItemComponent, 
+    ShoppingListComponent, 
+    ShoppingEditComponent,
     DropdownDirective,
     RecipeStartComponent,
     RecipeEditComponent,
     AuthComponent,
     LoadingSpinnerComponent,
-    AlertComponent
+    AlertComponent,
+    PlaceholderDirective
   ],
   imports: [
     BrowserModule,
@@ -45,6 +52,9 @@ import { AlertComponent } from './shared/alert/alert.component';
     AppRoutingModule
   ],
   providers: [ShoppingListService, RecipeService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }], //it makes sure all app has the same RecipeService instance, avoiding instantiating it more than once
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AlertComponent // now Angular is ready to create this component whenever it is prompted to creation. Without this it´s not able to create it
+  ]
 })
 export class AppModule { }
