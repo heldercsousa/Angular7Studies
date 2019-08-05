@@ -51,6 +51,7 @@ export class AuthComponent implements OnDestroy {
     this.error = null;
   }
 
+  // that´s not the right way, but instead it´s just a second approach. Consider using ngIf approach sinc it´s way simplier
   private showErrorAlert(message: string) {
     // dinamically create our component
     // const alertComp = new AlertComponent(); wrong way to create, cause it will not be an angular component
