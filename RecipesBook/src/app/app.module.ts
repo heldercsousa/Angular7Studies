@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -49,7 +50,8 @@ import { PlaceholderDirective } from './shared/placeholder/placeholder.directive
     ReactiveFormsModule, //has to be added otherwise Reactive-drivenb approach doesnt work
     HttpClientModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [ShoppingListService, RecipeService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }], //it makes sure all app has the same RecipeService instance, avoiding instantiating it more than once
   bootstrap: [AppComponent],
