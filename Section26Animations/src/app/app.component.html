@@ -5,7 +5,10 @@
       <button class="btn btn-primary" (click)="onAnimate()">Animate!</button>
       <button class="btn btn-primary" (click)="onShrunken()">Shrink!</button>
       <hr>
-      <div [@divState]="state" style="width:100px;height:100px"></div>
+      <div [@divState]="state" 
+      (@divState.start)="animationStarted($event)"
+      (@divState.done)="animationEnded($event)"
+       style="width:100px;height:100px"></div>
       <br>
       <div [@wildState]="wildState" style="width:100px;height:100px"></div>
     </div>
