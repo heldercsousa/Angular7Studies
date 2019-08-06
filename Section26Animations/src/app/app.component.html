@@ -17,9 +17,11 @@
       <button class="btn btn-primary" (click)="onAdd(input.value)">Add Item!</button>
       <hr>
       <ul class="list-group">
+        <!-- [@list1] bind to anything -->
         <li
           class="list-group-item"
           (click)="onDelete(item)"
+          [@list1]  
           *ngFor="let item of list">
           {{ item }}
         </li>

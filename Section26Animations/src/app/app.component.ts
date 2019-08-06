@@ -14,7 +14,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         'background-color': 'blue',
         transform: 'translateX(100px)'
       })),
-      transition('normal <=> highlighted', animate(300)),
+      transition('normal <=> highlighted', animate('300ms 100ms ease-out')),
     ]),
     trigger('wildState', [ 
       state('normal', style({
@@ -26,12 +26,40 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         transform: 'translateX(100px) scale(1)'
       })),
       state('shrunken', style({
-        'background-color': 'blue',
-        transform: 'translateX(0px) scale(0.5)'
+        'background-color': 'green',
+        transform: 'translateX(0px) scale(1)'
       })),
-      transition('normal => highlighted', animate(300)),
-      transition('highlighted => normal', animate(800)),
-      transition('shrunken <=> *', animate(500))
+      transition('normal <=> highlighted', animate('300ms 100ms ease-out')),
+      transition('shrunken <=> *', [
+        style({
+          'background-color': 'orange'
+        }),
+        animate(1000, style({
+          borderRadius: '50px'
+        })),
+        animate(500)
+      ])
+    ]),
+    trigger('list1', [ 
+      state('in', style({
+        opacity: 1,
+        transform: 'translateX(0)'
+      })),
+      transition('void => *', [
+        // transition starts with the following style
+        style({
+          opacity: 0,
+          transform: 'translateX(-100px)'
+        }),
+        animate('300ms 100ms ease-out')
+      ]), // void is used by Angular to elements not added to the DOM
+      transition('* => void', [
+        // transition has a final state defined inside animates
+        animate('300ms 100ms ease-out', style({
+          opacity: 0,
+          transform: 'translateX(100px)'
+        }))
+      ])
     ])
   ]
 })
