@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "^8.0.0",
     "@angular/router": "^8.0.0",
     "angular-route": "^1.7.8",
-    "bootstrap": "3.3.7",
+    "bootstrap": "3.4.1",
     "core-js": "^3.1.2",
     "http-module": "0.0.5",
     "rxjs": "6.3.3",
